@@ -1,0 +1,29 @@
+aws iam create-user --user-name one  #user creation
+aws iam delete-user --user-name one  #delete user
+aws iam list-users   #for list of users
+aws iam create-login-profile --generate-cli-skeleton > create-login-profile.json  #to create a login profile
+#after creatin the login profile down the resources from action for that you need path link so 
+pwd #for path link
+#go to actions>downloadfile>/home/cloudshell-user(#paste the link)/create-login-profile.json
+#open the file and give user name and password and password reset as "false" and the save and delete the cloud shell from action>delete the aws cloudshell home directory
+#upload the file into the cloudshell actions>upload>.json file
+aws iam create-login-profile --cli-input-json file://create-login-profile.json  #login id created
+aws iam attach-user-policy --policy-arn arn:aws:iam::459949273016:policy/pyFullAccess --user-name seconduser  #attach policy to the user
+aws iam detach-user-policy --policy-arn arn:aws:iam::459949273016:policy/pyFullAccess --user-name seconduser  #detach policy to the user
+#any list of iam code use --> aws iam help
+#u can see this-->
+       o add-client-id-to-open-id-connect-provider
+       o add-role-to-instance-profile
+       o add-user-to-group
+       o attach-group-policy
+       o attach-role-policy
+       o attach-user-policy
+       o change-password
+       o create-access-key
+       o create-account-alias     #these are the iam available commands
+aws iam create-access-key --user-name seconduser   #to create access key
+aws iam delete-access-key --access-key-id AKIAWWFY4564FU6G4IPU --user-name seconduser  #to delete the access key
+aws iam create-group --group-name master  #create group
+aws iam delete-group --group-name master  #delete group
+aws iam add-user-to-group --user-name main_user --group-name master    #add user to group
+remove-user-from-group --user-name main_user --group-name master    #remove user from group
