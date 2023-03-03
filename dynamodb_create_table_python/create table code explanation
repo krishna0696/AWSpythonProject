@@ -1,0 +1,39 @@
+import boto3: This imports the boto3 library, which is the Amazon Web Services (AWS) SDK for Python.
+
+def create_movie_table(dynamodb=None): This defines a function called create_movie_table with an optional parameter called dynamodb, which is set to None by default.
+
+if not dynamodb: This checks whether the dynamodb parameter is None.
+
+dynamodb = boto3.resource('dynamodb') This creates a DynamoDB resource using the boto3 library. If the dynamodb parameter was None, it creates a new resource. Otherwise, it uses the resource that was passed as an argument.
+
+table = dynamodb.create_table( This creates a new DynamoDB table using the create_table method of the DynamoDB resource.
+
+TableName='movies', This specifies the name of the new table as movies.
+
+KeySchema=[ This specifies the key schema for the new table. The key schema consists of two attributes: year and title.
+
+{ 'AttributeName':'year', 'KeyType':'HASH' }, This specifies that the year attribute is the hash key (partition key) for the new table.
+
+{ 'AttributeName':'title', 'KeyType':'RANGE' } This specifies that the title attribute is the range key (sort key) for the new table.
+
+], This ends the key schema list.
+
+AttributeDefinitions=[ This specifies the attribute definitions for the new table. The attribute definitions consist of two attributes: year and title.
+
+{ 'AttributeName': 'year', 'AttributeType': 'N' }, This specifies that the year attribute is a number (N).
+
+{ 'AttributeName': 'title', 'AttributeType': 'S' } This specifies that the title attribute is a string (S).
+
+], This ends the attribute definitions list.
+
+ProvisionedThroughput={ 'ReadCapacityUnits':10, 'WriteCapacityUnits':10 } This specifies the provisioned throughput for the new table. The table is provisioned with 10 read capacity units and 10 write capacity units.
+
+) This ends the create_table method call.
+
+return table This returns the newly created DynamoDB table.
+
+if __name__ == "__main__": This checks whether the script is being run as the main program.
+
+movie_table = create_movie_table() This calls the create_movie_table function and assigns the returned table object to the movie_table variable.
+
+print("Table status : ", movie_table.table_status) This prints the status of the new table to the console. The table_status attribute of the table object contains the status of the table, such as CREATING, ACTIVE, or DELETING.
