@@ -6,7 +6,7 @@ def create_movie_table(dynamodb=None):
 
     table = dynamodb.create_table(
         TableName='movies',
-        KeySchemes=[
+        KeySchema=[
             {
                 'AttributeName':'year',
                 'KeyType':'HASH'
@@ -15,12 +15,26 @@ def create_movie_table(dynamodb=None):
                 'AttributeName':'title',
                 'KeyType':'RANGE'
             }
-        ]
+        ],
 
         AttributeDefinitions=[
             {
                 'AttributeName': 'year',
                 'AttributeType': 'N'
+            },
+            {
+                'AttributeName': 'title',
+                'AttributeType': 'S'
             }
-        ]
+        ],
+        ProvisionedThroughput= {
+            'ReadCapacityUnits':10,
+            'WriteCapacityUnits':10
+        }
     )
+
+    return table
+
+if __name__ == "__main__":
+    movie_table = create_movie_table()
+    print("Table status : ", movie_table.table_status)
