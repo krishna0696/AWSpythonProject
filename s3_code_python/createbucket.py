@@ -4,7 +4,7 @@ bucket = boto3.resource('s3')
 
 response = bucket.create_bucket (
     Bucket ='oneway12345678',
-    ACL='public-read-write',
+    ACL='private',
     CreateBucketConfiguration= {
         'LocationConstraint':'ap-south-1'
         }
